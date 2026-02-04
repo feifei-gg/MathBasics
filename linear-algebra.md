@@ -17,7 +17,7 @@
 **Formula:**
 
 $$
-\begin{vmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{vmatrix} = a_{11}a_{22} - a_{12}a_{21}
+\begin{vmatrix} a_{11} & a_{12} \\\\ a_{21} & a_{22} \end{vmatrix} = a_{11}a_{22} - a_{12}a_{21}
 $$
 
 > **Rule:** Product of the main diagonal minus the product of the secondary diagonal.
@@ -27,7 +27,7 @@ $$
 Whether it is an upper triangular or lower triangular determinant, its value is equal to the product of the elements on the main diagonal.
 
 $$
-D = \begin{vmatrix} a_{11} & \cdots & \cdots \\ 0 & a_{22} & \cdots \\ 0 & 0 & a_{nn} \end{vmatrix} = a_{11} \cdot a_{22} \cdots a_{nn}
+D = \begin{vmatrix} a_{11} & \cdots & \cdots \\\\ 0 & a_{22} & \cdots \\\\ 0 & 0 & a_{nn} \end{vmatrix} = a_{11} \cdot a_{22} \cdots a_{nn}
 $$
 
 ### 3. Properties of Determinants and Calculation Techniques
@@ -56,7 +56,7 @@ $$
 **Example:**
 
 $$
-\begin{vmatrix} 1 & 1 & 1 \\ a & b & c \\ a^2 & b^2 & c^2 \end{vmatrix} = (b-a)(c-a)(c-b)
+\begin{vmatrix} 1 & 1 & 1 \\\\ a & b & c \\\\ a^2 & b^2 & c^2 \end{vmatrix} = (b-a)(c-a)(c-b)
 $$
 
 ### 5. Special Type: Claw-shaped Determinant
@@ -72,9 +72,9 @@ Given a claw shaped determinant:
 
 $$
 D = \begin{vmatrix}
-a_{1} & 1 & 1 & \cdots \\
-1 & a_{2} & 0 & \cdots \\
-1 & 0 & a_{3} & \cdots \\
+a_{1} & 1 & 1 & \cdots \\\\
+1 & a_{2} & 0 & \cdots \\\\
+1 & 0 & a_{3} & \cdots \\\\
 \vdots & \vdots & \vdots & \ddots
 \end{vmatrix}
 $$
@@ -101,65 +101,61 @@ $$
 D = \sum_{j=1}^{n} a_{ij} A_{ij}
 $$
 
-#### 💡 Example: Using the "Splitting Sums" Method
-If $D = \begin{vmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{vmatrix} = 1$, calculate $D_1$:
+#### Example: Using the "Splitting Sums" Method
+If:
 
 $$
-D_1 = \begin{vmatrix} -2a_{11} & 2a_{11}-a_{12} & a_{13} \\ -2a_{21} & 2a_{21}-a_{22} & a_{23} \\ -2a_{31} & 2a_{31}-a_{32} & a_{33} \end{vmatrix}
+D = \begin{vmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \end{vmatrix} = 1
+$$
+
+then calculate:
+
+$$
+D_1 = \begin{vmatrix} -2a_{11} & 2a_{11}-a_{12} & a_{13} \\\\ -2a_{21} & 2a_{21}-a_{22} & a_{23} \\\\ -2a_{31} & 2a_{31}-a_{32} & a_{33} \end{vmatrix}
 $$
 
 **Solution:**
 
 $$
 \begin{aligned}
-D_1 &= \begin{vmatrix} -2a_{11} & 2a_{11}-a_{12} & a_{13} \\ -2a_{21} & 2a_{21}-a_{22} & a_{23} \\ -2a_{31} & 2a_{31}-a_{32} & a_{33} \end{vmatrix} \\
-&\xrightarrow{\text{Split Sum}} \begin{vmatrix} -2a_{11} & 2a_{11} & a_{13} \\ -2a_{21} & 2a_{21} & a_{23} \\ -2a_{31} & 2a_{31} & a_{33} \end{vmatrix} + \begin{vmatrix} -2a_{11} & -a_{12} & a_{13} \\ -2a_{21} & -a_{22} & a_{23} \\ -2a_{31} & -a_{32} & a_{33} \end{vmatrix} \\
-&= 0 + (-2)(-1) \begin{vmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{vmatrix} \\
+D_1 &= \begin{vmatrix} -2a_{11} & 2a_{11}-a_{12} & a_{13} \\\\ -2a_{21} & 2a_{21}-a_{22} & a_{23} \\\\ -2a_{31} & 2a_{31}-a_{32} & a_{33} \end{vmatrix} \\\\
+&\xrightarrow{\text{Split Sum}} \begin{vmatrix} -2a_{11} & 2a_{11} & a_{13} \\\\ -2a_{21} & 2a_{21} & a_{23} \\\\ -2a_{31} & 2a_{31} & a_{33} \end{vmatrix} + \begin{vmatrix} -2a_{11} & -a_{12} & a_{13} \\\\ -2a_{21} & -a_{22} & a_{23} \\\\ -2a_{31} & -a_{32} & a_{33} \end{vmatrix} \\\\
+&= 0 + (-2)(-1) \begin{vmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \end{vmatrix} \\\\
 &= 2
 \end{aligned}
 $$
-
-> **Important Conclusion:** The sum of the elements of one row multiplied by the cofactors of **another** row equals 0.
 
 ### 7. Using the Laplace Formula
 
 A common formula:
 
 $$
-D = \begin{vmatrix} a_1 & a_2 & 0 & 0 \\ a_3 & a_4 & 0 & 0 \\ c_1 & c_2 & b_1 & b_2 \\ c_3 & c_4 & b_3 & b_4 \end{vmatrix} = \begin{vmatrix} a_1 & a_2 \\ a_3 & a_4 \end{vmatrix} \cdot \begin{vmatrix} b_1 & b_2 \\ b_3 & b_4 \end{vmatrix}
+D = \begin{vmatrix} a_1 & a_2 & 0 & 0 \\\\ a_3 & a_4 & 0 & 0 \\\\ c_1 & c_2 & b_1 & b_2 \\\\ c_3 & c_4 & b_3 & b_4 \end{vmatrix} = \begin{vmatrix} a_1 & a_2 \\\\ a_3 & a_4 \end{vmatrix} \cdot \begin{vmatrix} b_1 & b_2 \\\\ b_3 & b_4 \end{vmatrix}
 $$
 
-#### 💡 Examples
+#### Examples
 
-**Calculate 1:** $D_1 = \begin{vmatrix} 5 & 2 & 0 & 0 \\ 2 & 1 & 0 & 0 \\ 1 & 2 & 8 & 3 \\ 0 & 3 & 5 & 2 \end{vmatrix}$
+**Calculate 1:**
 
 $$
-D_1 = \begin{vmatrix} 5 & 2 \\ 2 & 1 \end{vmatrix} \cdot \begin{vmatrix} 8 & 3 \\ 5 & 2 \end{vmatrix} = 1 \times 1 = 1
+D_1 = \begin{vmatrix} 5 & 2 & 0 & 0 \\\\ 2 & 1 & 0 & 0 \\\\ 1 & 2 & 8 & 3 \\\\ 0 & 3 & 5 & 2 \end{vmatrix}
 $$
 
-**Calculate 2:** $D_2 = \begin{vmatrix} 0 & 0 & 1 & 2 \\ 0 & 0 & 3 & 4 \\ 3 & 1 & 0 & 0 \\ -1 & 1 & 0 & 0 \end{vmatrix}$
+$$
+D_1 = \begin{vmatrix} 5 & 2 \\\\ 2 & 1 \end{vmatrix} \cdot \begin{vmatrix} 8 & 3 \\\\ 5 & 2 \end{vmatrix} = 1 \times 1 = 1
+$$
+
+**Calculate 2:**
+
+$$
+D_2 = \begin{vmatrix} 0 & 0 & 1 & 2 \\\\ 0 & 0 & 3 & 4 \\\\ 3 & 1 & 0 & 0 \\\\ -1 & 1 & 0 & 0 \end{vmatrix}
+$$
 
 $$
 \begin{aligned}
-D_2 &\xrightarrow[C_2 \leftrightarrow C_4]{C_1 \leftrightarrow C_3}
-(-1)^2
-\begin{vmatrix}
-1 & 2 & 0 & 0 \\
-3 & 4 & 0 & 0 \\
-0 & 0 & 3 & 1 \\
-0 & 0 & -1 & 1
-\end{vmatrix} \\
-&=
-\begin{vmatrix}
-1 & 2 \\
-3 & 4
-\end{vmatrix}
-\cdot
-\begin{vmatrix}
-3 & 1 \\
--1 & 1
-\end{vmatrix}
-= (-2)\times 4 = -8.
+D_2 &\xrightarrow[C_{2} \leftrightarrow C_{4}]{C_{1} \leftrightarrow C_{3}} (-1)^2 \begin{vmatrix} 1 & 2 & 0 & 0 \\\\ 3 & 4 & 0 & 0 \\\\ 0 & 0 & 3 & 1 \\\\ 0 & 0 & -1 & 1 \end{vmatrix} \\\\
+&= \begin{vmatrix} 1 & 2 \\\\ 3 & 4 \end{vmatrix} \cdot \begin{vmatrix} 3 & 1 \\\\ -1 & 1 \end{vmatrix} \\\\
+&= (-2) \times 4 = -8
 \end{aligned}
 $$
 
@@ -186,7 +182,7 @@ $$
     * **2x2 Matrix Shortcut:**
 
 $$
-A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \implies A^{-1} = \frac{1}{ad-bc} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}
+A = \begin{pmatrix} a & b \\\\ c & d \end{pmatrix} \implies A^{-1} = \frac{1}{ad-bc} \begin{pmatrix} d & -b \\\\ -c & a \end{pmatrix}
 $$
 
 > **Rule:** Swap the main diagonal, change signs of the secondary diagonal, divide by the determinant.
