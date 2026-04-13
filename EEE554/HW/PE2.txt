@@ -1,0 +1,91 @@
+1. supporse x and y are random variables with joint PDF f_xy(x, y) = 1/8 if abs(x) + abs(y) <= 2 otherwise 0.
+note that the region where this PDF is non-zero is the union of four triangles. one in each quardant.
+Denote A= {y >= x^2}
+a): calculate the P(A)
+b): find f_y(y|A)
+c): computer var(x|A)
+
+2. RVs x and y are jointly normal. Both have mean 1 ans variance 2, and their covariance is -1
+a): write the explicit expression for f_xy(x, y)
+b): sketch the covariance ellipse of [x, y] transpose
+c): find the orthogonal(real unitary) matrix U so that the random vector W = U[x, y]^T uncorrlated
+d) compute E[W]
+
+3. z is a complex random 3-vector with mean E[z] and covariance matrix C_z as follows:
+E[z] = [0, -i 1]^T and C_z = [[4, i, a], [b, 3, 0], [1, c, 3]]
+a) find the values of a, b and c
+b) if x = 2z1 - 3z2 + (2i + 1)z3, calculate var(x)
+
+4. RVs x1,...,xn are iid and uniformly distributed on [0, theta] with theta > 0, consider and estimator thetabar of the parameter
+theta defined by thetabar = 2/n(sigma(x_k), k from 1 to n)
+calculate the bias beta(thetabar) and the variance var(thetabar) of the estimator
+
+5. an estimator thetabar of a parameter theta and bias bata. A new estimator of theta is defined as theta1bar = 2thetabar. what's
+bias of theta1bar
+
+
+###############
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. the joint pdf of RVs x and y is f_xy(x, y) = 2/3 if -1<=x<=0, 0<=y<=1; 2/3 if 0<=x <=1, 0<=y<=1, x+y <=1; 0 otherwise
+define events A={x <0} and B = {x >0}
+
+a):calculate E[x] and E[y]
+b): find E[x|A] and E[y|B]
+c): are x and y independent? are they independent given A, are they independent given B?
+
+
+2. A real random 2-vector X=[x1, x2]^T is normal with mean [1, -1]^T adn covariance matrix C_x = [[10, -2*sqrt(3)], [-2*sqrt(3), 6]]
+a): write an expression for teh PDF f_x2 of the RV x_2
+b):sketch the covariance ellipse of X
+c): find the unitary matrix U so that Y=UX has a digonal covariance matrix C_Y
+d):sketch the covariance ellipse of Y
+
+3. Z is a complex random 3-vector with mean M = [i, -2, 0]^T and covariance matrix C_z as follows:
+C_z = [[3, 1, i], [1, 3, 0], [-i, 0, 3]]
+ define w1=2iz1-z3 w2=z2+(1+i)z3 calculate E[abs(w2)^2]
+
+4. RVs x1...xn are iid are uniformly distributed on [0, theta] with theta >0 consider an estimator thetabar of theta defined by thetabar = max(x1, .... xn)
+calculate the bias beta(thetabar) and the variance var(thetabar) of this estimator
+
+5. thetabar and thetawave are two estimators of a parameter theta that use data x1... xn. their respective bias are beta(thetabar) = 0.1theta-2
+beta(thetawave) = -0.2theta + 1 find a,b so that estimator thetabar = a*thetabar + b*thetawave is unbiased

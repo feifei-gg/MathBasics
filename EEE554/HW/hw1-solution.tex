@@ -1,0 +1,563 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    language=Python
+}
+\lstset{style=mystyle}
+
+\title{EEE 554 Homework 1}
+\author{Chaofei Guo (Student ID: 1237382330, ASURITE: chaofeig)}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Problem 2-6 (Page 44)}
+\textbf{Problem Statement:} Show that if $S$ consists of a countable number of elements $\zeta_i$ and each subset $\{\zeta_i\}$ is an event, then all subsets of $S$ are events.
+
+\begin{proof}
+	Let $S = \{\zeta_1, \zeta_2, \dots\}$ be a countable sample space.
+	By definition, the collection of all events forms a \textbf{Borel field}. A defining property of a Borel field $\mathcal{F}$ is that it is closed under countable unions. That is, if $A_1, A_2, \dots \in \mathcal{F}$, then:
+	\[
+		\bigcup_{n=1}^{\infty} A_n \in \mathcal{F}
+	\]
+
+	Let $A$ be an arbitrary subset of $S$. Since $S$ is countable, any subset $A$ consists of a countable collection of
+	elements from $S$. Let $K$ be the index set of the elements contained in $A$. We can express $A$ as the union of its
+	constituent singleton sets:
+	\[
+		A = \bigcup_{i \in K} \{\zeta_i\}
+	\]
+
+	We are given that every singleton set $\{\zeta_i\}$ is an event, which means $\{\zeta_i\} \in \mathcal{F}$ for all $i$.
+
+	Since $A$ is formed by a countable union of events $\{\zeta_i\}$, and the field of events $\mathcal{F}$ is closed under
+	countable union, it follows that $A$ is also an event ($A \in \mathcal{F}$).
+
+	Therefore, all subsets of $S$ are events.
+\end{proof}
+
+\vspace{1cm}
+\hrule
+\vspace{1cm}
+
+\section*{Problem 2-7 (Page 44)}
+\textbf{Problem Statement:} If $S = \{1, 2, 3, 4\}$, find the smallest field that contains the sets $\{1\}$ and $\{2, 3\}$.
+
+\subsection*{Solution}
+Let the given sets be $A = \{1\}$ and $B = \{2, 3\}$. To construct the smallest field $\mathcal{F}$, we must ensure it
+is closed under complements and unions. By the properties of a field, we can derive the following sets:
+
+\begin{enumerate}
+	\item We have $\{1\} \in \mathcal{F}$ and $\{2, 3\} \in \mathcal{F}$.
+	\item The union of these sets is $\{1, 2, 3\} \in \mathcal{F}$.
+	\item The complement of this union with respect to $S = \{1, 2, 3, 4\}$ must also be in $\mathcal{F}$:
+	      \[ \overline{\{1, 2, 3\}} = \{4\} \]
+\end{enumerate}
+
+Thus, the partition of $S$ is:
+\[ E_1 = \{1\}, \quad E_2 = \{2, 3\}, \quad E_3 = \{4\} \]
+
+The smallest field consists of all possible unions of these three sets. There are $2^3 = 8$ such combinations:
+
+\begin{align*}
+	\mathcal{F} = \Big\{
+	 & \emptyset,     &  & \text{(Empty set)}           \\
+	 & \{1\},         &  & \text{(} E_1)                \\
+	 & \{2, 3\},      &  & \text{(} E_2)                \\
+	 & \{4\},         &  & \text{(} E_3)                \\
+	 & \{1, 2, 3\},   &  & \text{(Union } E_1 \cup E_2) \\
+	 & \{1, 4\},      &  & \text{(Union } E_1 \cup E_3) \\
+	 & \{2, 3, 4\},   &  & \text{(Union } E_2 \cup E_3) \\
+	 & \{1, 2, 3, 4\} &  & \text{(Whole space } S)
+	\Big\}
+\end{align*}
+
+\vspace{1cm}
+\hrule
+\vspace{1cm}
+
+\section*{Problem 2-10 (Page 45)}
+\textbf{Problem Statement:} (Chain rule) Show that
+\[ P(A_n \dots A_1) = P(A_n | A_{n-1} \dots A_1) \dots P(A_2 | A_1) P(A_1) \]
+
+\begin{proof}
+	We use the definition of conditional probability, $P(AB) = P(A|B)P(B)$, iteratively.
+
+	Consider the joint probability of $n$ events, denoted as the intersection $P(A_n \cap A_{n-1} \cap \dots \cap A_1)$.
+	Let $B = A_{n-1} \dots A_1$. Then:
+	\[ P(A_n A_{n-1} \dots A_1) = P(A_n | A_{n-1} \dots A_1) P(A_{n-1} \dots A_1) \]
+
+	Next, we expand the term $P(A_{n-1} \dots A_1)$ by conditioning $A_{n-1}$ on the remaining events $A_{n-2} \dots A_1$:
+	\[ P(A_{n-1} \dots A_1) = P(A_{n-1} | A_{n-2} \dots A_1) P(A_{n-2} \dots A_1) \]
+
+	Substituting this back into the first equation:
+	\[ P(A_n \dots A_1) = P(A_n | A_{n-1} \dots A_1) P(A_{n-1} | A_{n-2} \dots A_1) P(A_{n-2} \dots A_1) \]
+
+	Repeating this process $n-1$ times, we can reach the last term $P(A_1)$:
+	\begin{align*}
+		P(A_n \dots A_1) & = P(A_n | A_{n-1} \dots A_1)                \\
+		                 & \quad \times P(A_{n-1} | A_{n-2} \dots A_1) \\
+		                 & \quad \times \dots                          \\
+		                 & \quad \times P(A_2 | A_1)                   \\
+		                 & \quad \times P(A_1)
+	\end{align*}
+	This completes the proof of the chain rule.
+\end{proof}
+
+\vspace{1cm}
+\hrule
+\vspace{1cm}
+
+\section*{Problem 4}
+\textbf{Statement:} Consider events $A$ and $B$ that are exhaustive in $S$ with $P(B) = \alpha P(A)$ where $\alpha \ge 1$. If $A$ and $B$ are independent, show that $P(B) = 1$.
+
+\begin{proof}
+	We are given three conditions:
+	\begin{enumerate}
+		\item $A$ and $B$ are exhaustive: $P(A \cup B) = 1$.
+		\item Independence: $P(AB) = P(A)P(B)$.
+		\item Ratio: $P(B) = \alpha P(A)$ with $\alpha \ge 1$.
+	\end{enumerate}
+
+	Using the addition law of probability:
+	\[ P(A \cup B) = P(A) + P(B) - P(AB) \]
+
+	Substituting the given values:
+	\[ 1 = P(A) + P(B) - P(A)P(B) \]
+
+	Rearranging terms to factor:
+	\[ 1 - P(B) = P(A) - P(A)P(B) \]
+	\[ 1 - P(B) = P(A) [1 - P(B)] \]
+	\[ [P(A) - 1][1 - P(B)] = 0 \]
+
+	This equation implies two possible cases:
+	\begin{itemize}
+		\item \textbf{Case 1:} $P(B) = 1$. In this case, the proof is complete.
+		\item \textbf{Case 2:} $P(A) = 1$. If $P(A) = 1$, then $P(B) = \alpha P(A) = \alpha$. Since $P(B)$ is a probability, $P(B) \le 1$. Given $\alpha \ge 1$, the only valid solution is $\alpha = 1$, which implies $P(B) = 1$.
+	\end{itemize}
+
+	Thus, in all valid cases, $P(B) = 1$.
+\end{proof}
+
+\vspace{1cm}
+\hrule
+\vspace{1cm}
+
+\section*{Problem 2-13 (Page 45)}
+\textbf{Statement:} The space $S$ is the set of all positive numbers $t$. Show that if
+\[ P\{t_0 \le t \le t_0 + t_1 | t \ge t_0\} = P\{t \le t_1\} \]
+for every $t_0$ and $t_1$, then $P\{t \le t_1\} = 1 - e^{-ct_1}$.
+
+\begin{proof}
+	Let $T$ be the random variable representing the outcome (e.g., time to failure).
+	Let $G(t)$ be the \textbf{Reliability Function} (or Survival Function), defined as the probability that the variable exceeds $t$:
+	\[ G(t) = P\{T > t\} \]
+	Consequently, the Cumulative Distribution Function (CDF) is:
+	\[ F(t) = P\{T \le t\} = 1 - G(t) \]
+
+	The problem statement gives the condition regarding the probability of failure in an interval $(t_0, t_0 + t_1)$, given
+	survival up to $t_0$. It is mathematically cleaner to work with the complementary event (survival).
+
+	\paragraph{1. Translate the Condition to Survival Probability}
+	The given condition is:
+	\[ P\{t_0 \le T \le t_0 + t_1 \mid T \ge t_0\} = P\{T \le t_1\} \]
+	The LHS represents the probability of ``dying'' in the interval $[t_0, t_0+t_1]$. The complementary event is
+	``surviving'' past $t_0+t_1$, given $T \ge t_0$.
+	\[ P\{T > t_0 + t_1 \mid T \ge t_0\} = 1 - P\{t_0 \le T \le t_0 + t_1 \mid T \ge t_0\} \]
+	Substituting the given condition into the RHS:
+	\[ P\{T > t_0 + t_1 \mid T \ge t_0\} = 1 - P\{T \le t_1\} = P\{T > t_1\} \]
+	Thus, the problem condition is equivalent to the memoryless property:
+	\begin{equation}
+		P\{T > t_0 + t_1 \mid T \ge t_0\} = P\{T > t_1\}
+	\end{equation}
+
+	\paragraph{2. Apply Conditional Probability Definition}
+	Using the definition $P(A|B) = \frac{P(AB)}{P(B)}$:
+	\[ \frac{P\{T > t_0 + t_1 \cap T \ge t_0\}}{P\{T \ge t_0\}} = P\{T > t_1\} \]
+	Since the event $\{T > t_0 + t_1\}$ is a subset of $\{T \ge t_0\}$, their intersection is simply $\{T > t_0 + t_1\}$.
+	Also, using our definition $G(t) = P\{T > t\}$:
+	\[ \frac{G(t_0 + t_1)}{G(t_0)} = G(t_1) \]
+
+	\paragraph{3. Solve the Functional Equation}
+	Rearranging the terms gives:
+	\[ G(t_0 + t_1) = G(t_0)G(t_1) \]
+	This is the Cauchy Functional Equation. For a bounded, monotonic function (since probability must be between 0 and 1),
+	the only non-trivial continuous solution is the exponential function:
+	\[ G(t) = e^{-ct} \]
+	where $c$ is a positive constant ($c > 0$).
+
+	\paragraph{4. Final Result}
+	Substituting back into the definition of the CDF:
+	\[ P\{T \le t\} = 1 - G(t) = 1 - e^{-ct} \]
+\end{proof}
+
+\vspace{1cm}
+\hrule
+\vspace{1cm}
+
+\section*{Problem 4-8 (Page 120)}
+\textbf{Statement:} The random variable $x$ is $N(10, 1)$. Find $f(x | (x-10)^2 < 4)$.
+
+\subsection*{Solution}
+Let $M$ be the event defined by the condition $(x-10)^2 < 4$. This inequality is equivalent to:
+\[ |x - 10| < 2 \implies -2 < x - 10 < 2 \implies 8 < x < 12 \]
+
+The conditional PDF is defined as the truncated original PDF, normalized by the probability of the conditioning event:
+\[ f(x | M) = \begin{cases} \frac{f_x(x)}{P(M)} & 8 < x < 12 \\ 0 & \text{otherwise} \end{cases} \]
+
+First, we calculate $P(M)$. Since $x \sim N(10, 1)$, the variable $z = x - 10$ is standard normal $N(0, 1)$.
+\[ P(M) = P(8 < x < 12) = P(-2 < z < 2) \]
+Using the symmetry of the standard normal distribution $\Phi(z)$:
+\[ P(-2 < z < 2) = \Phi(2) - \Phi(-2) = \Phi(2) - (1 - \Phi(2)) = 2\Phi(2) - 1 \]
+Using standard tables, $\Phi(2) \approx 0.9772$.
+\[ P(M) \approx 2(0.9772) - 1 = 0.9544 \]
+
+The original PDF for $N(10, 1)$ is:
+\[ f_x(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{(x-10)^2}{2}} \]
+
+Thus, the conditional density is:
+\[ f(x | (x-10)^2 < 4) = \frac{1}{(2\Phi(2)-1)\sqrt{2\pi}} e^{-\frac{(x-10)^2}{2}}, \quad 8 < x < 12 \]
+Substituting the numerical value for the normalization constant:
+\[ f(x | M) \approx \frac{1}{0.9544 \sqrt{2\pi}} e^{-\frac{(x-10)^2}{2}} \approx 0.418 e^{-\frac{(x-10)^2}{2}}, \quad 8 < x < 12 \]
+and 0 otherwise.
+
+\vspace{1cm}
+\hrule
+\vspace{1cm}
+
+\section*{Problem 7}
+
+\textbf{Statement:} Define $h(x)$ as:
+\[ h(x) = \begin{cases} c & \text{if } x \in (n, n + 2^{-(n+1)}) \text{ for } n = 0, 1, 2, \dots \\ 0 & \text{otherwise} \end{cases} \]
+
+\subsection*{(a) Find a value of $c$ for which $h$ is a PDF.}
+For $h(x)$ to be a PDF, the integral over the entire domain must be 1.
+\[ \int_{-\infty}^{\infty} h(x) \, dx = \sum_{n=0}^{\infty} \text{Area}_n = 1 \]
+The area of the $n$-th interval is given by height $\times$ width:
+\[ \text{Area}_n = c \cdot 2^{-(n+1)} \]
+Summing these areas (a geometric series):
+\[ \sum_{n=0}^{\infty} c \left(\frac{1}{2}\right)^{n+1} = c \sum_{k=1}^{\infty} \left(\frac{1}{2}\right)^k = c \left( \frac{1/2}{1 - 1/2} \right) = c(1) = c \]
+Setting the total area to 1, we find:
+\[ c = 1 \]
+
+\subsection*{(b) Calculate $E[x]$.}
+The expected value is:
+\[ E[x] = \int_{-\infty}^{\infty} x h(x) \, dx = \sum_{n=0}^{\infty} \int_{n}^{n + 2^{-(n+1)}} x \cdot (1) \, dx \]
+Evaluating the integral for a single interval:
+\[ \int_{a}^{a+\delta} x \, dx = \frac{(a+\delta)^2 - a^2}{2} = a\delta + \frac{\delta^2}{2} \]
+Letting $a=n$ and $\delta = 2^{-(n+1)}$:
+\[ E[x] = \sum_{n=0}^{\infty} \left[ n \left(\frac{1}{2}\right)^{n+1} + \frac{1}{2} \left(\frac{1}{2}\right)^{2n+2} \right] \]
+\[ = \frac{1}{2} \sum_{n=0}^{\infty} n \left(\frac{1}{2}\right)^n + \frac{1}{2} \sum_{n=0}^{\infty} \left(\frac{1}{4}\right)^{n+1} \]
+Using the series identities $\sum n x^n = x/(1-x)^2$ and $\sum x^{n+1} = x/(1-x)$:
+\begin{itemize}
+	\item First term: $\frac{1}{2} \cdot \frac{1/2}{(1/2)^2} = \frac{1}{2} \cdot 2 = 1$
+	\item Second term: $\frac{1}{2} \cdot \frac{1/4}{3/4} = \frac{1}{6}$
+\end{itemize}
+\[ E[x] = 1 + \frac{1}{6} = \frac{7}{6} \]
+
+\subsection*{(c) Construct a PDF with arbitrarily large values on tails.}
+We construct a ``comb'' of rectangular pulses that get taller and thinner as $y$ increases. Let the PDF be non-zero on
+intervals centered at integers $n > 0$. Define the height of the pulse at $n$ to be $h_n = n$ and the width to be $w_n
+	= \frac{1}{n^3}$. The area of the $n$-th pulse is $A_n = n \cdot \frac{1}{n^3} = \frac{1}{n^2}$. Since
+$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6} < \infty$, we can normalize this sum to create a valid PDF.
+
+Let $C = \frac{6}{\pi^2}$. Define:
+\[ f_y(y) = \begin{cases} C \cdot n & \text{if } y \in [n, n + n^{-3}] \text{ for } n \in \mathbb{Z}^+ \\ 0 & \text{otherwise} \end{cases} \]
+For any $b$, there exists an integer $n > b$. At this location, $f_y(y) = C \cdot n$. As $n \to \infty$, $f_y(y) \to
+	\infty$. Thus, the function takes on arbitrarily large values on the tails while maintaining a finite integral of 1.
+
+\vspace{1cm}
+\hrule
+\vspace{1cm}
+
+\section*{Problem 5-1 (Page 164)}
+
+\textbf{Problem Statement:}
+The random variable $x$ is $N(5, 2)$ and $y = 2x + 4$. Find $\eta_y$, $\sigma_y^2$, and $f_y(y)$.
+
+\subsection*{Solution}
+
+Given:
+\begin{itemize}
+	\item $x \sim N(\eta_x, \sigma_x)$ with $\eta_x = 5$ and $\sigma_x = 2$.
+	\item Transformation: $y = 2x + 4$.
+\end{itemize}
+
+\textbf{1. Mean of $y$ ($\eta_y$)}
+Using the linearity of expectation $E[ax+b] = aE[x] + b$:
+\[ \eta_y = E[2x + 4] = 2E[x] + 4 = 2(5) + 4 = 14 \]
+
+\textbf{2. Variance of $y$ ($\sigma_y^2$)}
+Using the property of variance $\text{Var}(ax+b) = a^2 \text{Var}(x)$:
+The variance of $x$ is $\sigma_x^2 = 2^2 = 4$.
+\[ \sigma_y^2 = 2^2 \sigma_x^2 = 4(4) = 16 \]
+(Standard deviation $\sigma_y = \sqrt{16} = 4$).
+
+\textbf{3. PDF of $y$ ($f_y(y)$)}
+Since $x$ is a Gaussian random variable, the linear transformation $y = 2x+4$ is also a Gaussian random variable with mean $\eta_y = 14$ and variance $\sigma_y^2 = 16$.
+The general form of the Gaussian PDF is:
+\[ f_y(y) = \frac{1}{\sqrt{2\pi}\sigma_y} e^{-\frac{(y - \eta_y)^2}{2\sigma_y^2}} \]
+Substituting the calculated values:
+\[ f_y(y) = \frac{1}{\sqrt{2\pi}(4)} e^{-\frac{(y - 14)^2}{2(16)}} \]
+\[ f_y(y) = \frac{1}{4\sqrt{2\pi}} e^{-\frac{(y - 14)^2}{32}} \]
+
+\vspace{1cm}
+\hrule
+\vspace{1cm}
+
+\section*{Problem 9}
+
+\textbf{Statement:} The random variable $x$ has PDF
+\[ f_x(x) = \begin{cases} c(a^2 - x^2) & |x| < a \\ 0 & \text{otherwise} \end{cases} \]
+
+\subsection*{(a) Find $c$ in terms of $a$.}
+The total probability must integrate to 1:
+\[ \int_{-a}^{a} c(a^2 - x^2) \, dx = 1 \]
+Using symmetry (even function):
+\[ 2c \int_{0}^{a} (a^2 - x^2) \, dx = 2c \left[ a^2 x - \frac{x^3}{3} \right]_{0}^{a} = 2c \left( a^3 - \frac{a^3}{3} \right) = \frac{4c a^3}{3} \]
+Setting this equal to 1:
+\[ \frac{4c a^3}{3} = 1 \implies c = \frac{3}{4a^3} \]
+
+\subsection*{(b) Calculate $P(\{-a < 4x < 3a\})$.}
+The inequality simplifies to $-\frac{a}{4} < x < \frac{3a}{4}$.
+\[ P = \int_{-a/4}^{3a/4} \frac{3}{4a^3} (a^2 - x^2) \, dx = \frac{3}{4a^3} \left[ a^2 x - \frac{x^3}{3} \right]_{-a/4}^{3a/4} \]
+Evaluation at limits:
+\begin{itemize}
+	\item Upper ($3a/4$): $a^2(\frac{3a}{4}) - \frac{1}{3}(\frac{3a}{4})^3 = \frac{3a^3}{4} - \frac{9a^3}{64} = \frac{39a^3}{64}$
+	\item Lower ($-a/4$): $a^2(-\frac{a}{4}) - \frac{1}{3}(-\frac{a}{4})^3 = -\frac{a^3}{4} + \frac{a^3}{192} =
+		      -\frac{47a^3}{192}$
+\end{itemize}
+\[ P = \frac{3}{4a^3} \left( \frac{39a^3}{64} - \left( -\frac{47a^3}{192} \right) \right) = \frac{3}{4} \left( \frac{117 + 47}{192} \right) = \frac{3}{4} \cdot \frac{164}{192} \]
+\[ P = \frac{3}{4} \cdot \frac{41}{48} = \frac{41}{64} \]
+
+\subsection*{(c) Find mean and variance of $x$.}
+\textbf{Mean:} Since $f_x(x)$ is an even function on a symmetric interval $[-a, a]$, the expected value $E[x]$ involves integrating an odd function $x f_x(x)$, which is zero.
+\[ E[x] = 0 \]
+
+\textbf{Variance:} $Var(x) = E[x^2] - (E[x])^2 = E[x^2]$.
+\[ E[x^2] = \int_{-a}^{a} x^2 \cdot c(a^2 - x^2) \, dx = 2c \int_{0}^{a} (a^2 x^2 - x^4) \, dx \]
+\[ = 2c \left[ \frac{a^2 x^3}{3} - \frac{x^5}{5} \right]_{0}^{a} = 2c \left( \frac{a^5}{3} - \frac{a^5}{5} \right) = 2c \left( \frac{2a^5}{15} \right) = \frac{4c a^5}{15} \]
+Substitute $c = \frac{3}{4a^3}$:
+\[ Var(x) = \frac{4a^5}{15} \cdot \frac{3}{4a^3} = \frac{12a^5}{60a^3} = \frac{1}{5}a^2 \]
+
+\vspace{1cm}
+\hrule
+\vspace{1cm}
+
+\section*{Problem 10}
+
+\textbf{Problem Statement:}
+A random variable $x$ is Gamma distributed. Calculate the moments $E[x^k]$ for $k=1, 2, \dots$ using the characteristic function.
+
+\subsection*{Solution}
+
+\textbf{1. Characteristic Function of Gamma Distribution}
+The PDF of a Gamma random variable with parameters $\alpha$ and $\lambda$ is:
+\[ f(x) = \frac{\lambda^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\lambda x} u(x) \]
+The characteristic function $\Phi_x(\omega)$ is defined as $E[e^{j\omega x}]$:
+\[ \Phi_x(\omega) = \int_{0}^{\infty} e^{j\omega x} \frac{\lambda^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\lambda x} \, dx = \frac{\lambda^\alpha}{\Gamma(\alpha)} \int_{0}^{\infty} x^{\alpha-1} e^{-(\lambda - j\omega)x} \, dx \]
+Using the definition of the Gamma integral, this evaluates to:
+\[ \Phi_x(\omega) = \frac{\lambda^\alpha}{\Gamma(\alpha)} \frac{\Gamma(\alpha)}{(\lambda - j\omega)^\alpha} = \left( 1 - \frac{j\omega}{\lambda} \right)^{-\alpha} \]
+
+\textbf{2. Moment Generation Formula}
+The $k$-th moment is given by the derivative property of the characteristic function:
+\[ E[x^k] = \frac{1}{j^k} \frac{d^k \Phi_x(\omega)}{d\omega^k} \bigg|_{\omega=0} \]
+
+\textbf{3. Derivation}
+Differentiating $\Phi_x(\omega) = (1 - j\omega/\lambda)^{-\alpha}$ repeatedly:
+\begin{itemize}
+	\item \textbf{First Derivative:}
+	      \[ \frac{d\Phi}{d\omega} = -\alpha \left( 1 - \frac{j\omega}{\lambda} \right)^{-\alpha-1} \left( -\frac{j}{\lambda} \right) = \frac{j\alpha}{\lambda} \left( 1 - \frac{j\omega}{\lambda} \right)^{-\alpha-1} \]
+
+	\item \textbf{Second Derivative:}
+	      \[ \frac{d^2\Phi}{d\omega^2} = \frac{j\alpha}{\lambda} (-\alpha-1) \left( 1 - \frac{j\omega}{\lambda} \right)^{-\alpha-2} \left( -\frac{j}{\lambda} \right) = \left(\frac{j}{\lambda}\right)^2 \alpha(\alpha+1) \left( 1 - \frac{j\omega}{\lambda} \right)^{-\alpha-2} \]
+
+	\item \textbf{$k$-th Derivative:}
+	      Following the pattern, the $k$-th derivative is:
+	      \[ \frac{d^k\Phi}{d\omega^k} = \left(\frac{j}{\lambda}\right)^k \alpha(\alpha+1)\cdots(\alpha+k-1) \left( 1 - \frac{j\omega}{\lambda} \right)^{-\alpha-k} \]
+\end{itemize}
+
+\textbf{4. Evaluation at $\omega=0$}
+\[ \frac{d^k\Phi}{d\omega^k} \bigg|_{\omega=0} = j^k \frac{\alpha(\alpha+1)\cdots(\alpha+k-1)}{\lambda^k} \]
+
+Substituting this back into the moment formula:
+\[ E[x^k] = \frac{1}{j^k} \left[ j^k \frac{\alpha(\alpha+1)\cdots(\alpha+k-1)}{\lambda^k} \right] \]
+\[ E[x^k] = \frac{\alpha(\alpha+1)\cdots(\alpha+k-1)}{\lambda^k} \]
+
+Using the property of the Gamma function where $\Gamma(z+1) = z\Gamma(z)$, we can write the numerator as
+$\frac{\Gamma(\alpha+k)}{\Gamma(\alpha)}$.
+
+\textbf{Final Result:}
+\[ E[x^k] = \frac{\Gamma(\alpha+k)}{\lambda^k \Gamma(\alpha)} \]
+
+\vspace{1cm}
+\hrule
+\vspace{1cm}
+
+\section*{Problem 11}
+
+\textbf{Problem Statement:}
+(Computer problem) Use a random number generator to generate 10,000 data values drawn independently from a normal distribution with mean zero and variance four. Similarly, obtain 10,000 data drawn independently from a uniform distribution with mean zero and variance four.
+(a) Produce histograms of both data sets.
+(b) For each of the two distributions, calculate the probability that a datum falls between 1 and 2. Compare these theoretical figures to the actual percentages of data that fall in this range in each data set.
+(c) Perform a two-sample Kolmogorov-Smirnov goodness of fit test on the two data sets and interpret the result.
+
+\subsection*{Solution}
+
+\begin{lstlisting}[caption={Python Simulation for Problem 11}]
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+# Set a random seed for reproducibility
+np.random.seed(42)
+
+# --- 1. Generate data ---
+N = 10000
+
+# (a) Normal distribution
+# Mean = 0, variance = 4 => standard deviation (scale) = sqrt(4) = 2
+data_norm = np.random.normal(loc=0, scale=2, size=N)
+
+# (b) Uniform distribution
+# Mean = 0 => interval is [-b, b]
+# Variance = 4 => (2b)^2 / 12 = 4 => 4b^2 = 48 => b = sqrt(12) approx 3.464
+limit = np.sqrt(12)
+data_unif = np.random.uniform(low=-limit, high=limit, size=N)
+
+# --- 2. (a) Plot histograms ---
+plt.figure(figsize=(12, 5))
+
+# Histogram for the normal distribution
+plt.subplot(1, 2, 1)
+plt.hist(
+    data_norm, bins=50, density=True, alpha=0.7, color="skyblue", edgecolor="black"
+)
+plt.title("Normal Distribution (Mean=0, Var=4)")
+plt.xlabel("Value")
+plt.ylabel("Density")
+
+# Histogram for the uniform distribution
+plt.subplot(1, 2, 2)
+plt.hist(
+    data_unif, bins=50, density=True, alpha=0.7, color="lightgreen", edgecolor="black"
+)
+plt.title("Uniform Distribution (Mean=0, Var=4)")
+plt.xlabel("Value")
+plt.ylabel("Density")
+
+plt.tight_layout()
+plt.show()
+
+# --- 3. (b) Compute the probability of falling in the interval [1, 2] ---
+# Theoretical value for the normal distribution
+prob_norm_theo = stats.norm.cdf(2, loc=0, scale=2) - stats.norm.cdf(1, loc=0, scale=2)
+# Empirical value for the normal distribution
+prob_norm_emp = np.sum((data_norm >= 1) & (data_norm <= 2)) / N
+
+# Theoretical value for the uniform distribution
+# Interval length is 1, total support length is 2*sqrt(12)
+prob_unif_theo = (2 - 1) / (2 * limit)
+# Empirical value for the uniform distribution
+prob_unif_emp = np.sum((data_unif >= 1) & (data_unif <= 2)) / N
+
+print(
+    f"Normal Distribution [1, 2]: Theoretical = {prob_norm_theo:.4f}, Empirical = {prob_norm_emp:.4f}"
+)
+print(
+    f"Uniform Distribution [1, 2]: Theoretical = {prob_unif_theo:.4f}, Empirical = {prob_unif_emp:.4f}"
+)
+
+# --- 4. (c) K-S test (Kolmogorov-Smirnov Test) ---
+# Test whether the two samples come from the same distribution
+ks_stat, p_value = stats.ks_2samp(data_norm, data_unif)
+
+print(f"\nK-S Test Result:")
+print(f"Statistic = {ks_stat:.4f}")
+print(f"P-value = {p_value:.4e}")
+\end{lstlisting}
+
+\textbf{1. Theoretical Parameters and Probabilities}
+First, we establish the parameters for both distributions given a mean $\mu = 0$ and variance $\sigma^2 = 4$.
+
+\begin{itemize}
+	\item \textbf{Normal Distribution $N(0, 4)$:}
+	      The standard deviation is $\sigma = \sqrt{4} = 2$.
+	      The theoretical probability of falling in the interval $[1, 2]$ is:
+	      \[ P_{norm} = P(1 \le X \le 2) = \Phi\left(\frac{2-0}{2}\right) - \Phi\left(\frac{1-0}{2}\right) = \Phi(1) - \Phi(0.5) \]
+	      Using standard normal tables ($\Phi(1) \approx 0.8413$, $\Phi(0.5) \approx 0.6915$):
+	      \[ P_{norm} \approx 0.8413 - 0.6915 = 0.1498 \]
+
+	\item \textbf{Uniform Distribution $U[a, b]$:}
+	      Since the mean is 0, the interval is symmetric: $[-L, L]$.
+	      The variance is $\frac{(2L)^2}{12} = 4 \implies \frac{4L^2}{12} = 4 \implies L^2 = 12 \implies L = \sqrt{12} \approx 3.464$.
+	      The PDF is $f(x) = \frac{1}{2\sqrt{12}}$ for $x \in [-\sqrt{12}, \sqrt{12}]$.
+	      The theoretical probability of falling in $[1, 2]$ is:
+	      \[ P_{unif} = \int_{1}^{2} \frac{1}{2\sqrt{12}} \, dx = \frac{2-1}{2\sqrt{12}} = \frac{1}{4\sqrt{3}} \approx 0.1443 \]
+\end{itemize}
+
+\textbf{2. Simulation Logic (Python/Matlab)}
+A simulation was performed generating $N=10,000$ points for each distribution.
+\begin{itemize}
+	\item \textbf{Data Generation:}
+	      Normal data generated with $\mu=0, \sigma=2$.
+	      Uniform data generated in range $[-\sqrt{12}, \sqrt{12}]$.
+	\item \textbf{Empirical Probability Calculation:}
+	      Counted number of samples $x$ where $1 \le x \le 2$ and divided by $N$.
+	\item \textbf{Kolmogorov-Smirnov Test:}
+	      Computed the statistic $D$ and $p$-value to test the null hypothesis that both samples come from the same distribution.
+\end{itemize}
+
+\textbf{3. Simulation Results}
+\begin{itemize}
+	\item \textbf{(a) Histograms:}
+	      The Normal data produced a bell-shaped histogram concentrated near 0. The Uniform data produced a flat, rectangular histogram extending from $\approx -3.46$ to $3.46$.
+
+	\item \textbf{(b) Probability Comparison:}
+	      The empirical results from the simulation closely matched the theoretical derivations:
+	      \[ \text{Normal: Theoretical } = 0.1499, \quad \text{Empirical } \approx 0.1470 \]
+	      \[ \text{Uniform: Theoretical } = 0.1443, \quad \text{Empirical } \approx 0.1487 \]
+	      \textit{(Note: Empirical values vary slightly per simulation run.)}
+
+	\item \textbf{(c) K-S Test Result:}
+	      The two-sample K-S test yielded:
+	      \[ \text{Statistic } D \approx 0.0705 \]
+	      \[ \text{P-value } p \approx 5.0 \times 10^{-22} \]
+\end{itemize}
+
+\textbf{4. Interpretation}
+The K-S test compares the cumulative distribution functions (CDFs) of the two datasets.
+\[ p \text{-value} \ll 0.05 \]
+Since the $p$-value is effectively zero, we \textbf{reject the null hypothesis}. \textbf{Conclusion:} Although both
+distributions share the same mean ($0$) and variance ($4$) and have very similar probabilities for the specific
+interval $[1, 2]$ (both $\approx 14.5\%$), the test confirms they are statistically significantly different
+distributions.
+\end{document}
